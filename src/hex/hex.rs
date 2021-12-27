@@ -1,10 +1,10 @@
 #![allow(dead_code)]
 #![allow(unused_variables)]
 
-use crate::hexlib::direction::HexDirection;
-use crate::hexlib::fractional::FractionalHex;
-use crate::hexlib::layout::{Layout, Orientation, Point};
-use crate::hexlib::offset::Offset;
+use crate::hex::direction::HexDirection;
+use crate::hex::fractional::FractionalHex;
+use crate::hex::layout::{Layout, Orientation, Point};
+use crate::hex::offset::Offset;
 use bevy::prelude::Vec3;
 use bevy::render::render_graph::NodeId;
 use bevy_inspector_egui::Inspectable;

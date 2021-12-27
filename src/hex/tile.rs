@@ -1,4 +1,4 @@
-use crate::hexlib::hex::Hex;
+use crate::hex::hex::Hex;
 use crate::tile_atlas::{BaseTileType, TileColor, TileType};
 use crate::Color;
 use bevy_inspector_egui::Inspectable;

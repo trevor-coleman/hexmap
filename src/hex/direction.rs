@@ -1,4 +1,4 @@
-use crate::hexlib::hex::Hex;
+use crate::hex::hex::Hex;
 use std::ops::Add;
 
 pub struct HexDirection(usize);

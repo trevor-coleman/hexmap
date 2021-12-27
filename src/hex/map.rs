@@ -1,6 +1,6 @@
-use crate::hexlib::hex::Hex;
-use crate::hexlib::offset::Offset;
-use crate::hexlib::tile::Tile;
+use crate::hex::hex::Hex;
+use crate::hex::offset::Offset;
+use crate::hex::tile::Tile;
 use std::cmp;
 use std::collections::{HashMap, HashSet};
 

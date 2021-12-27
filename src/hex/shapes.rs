@@ -1,5 +1,5 @@
-use crate::hexlib::fractional::FractionalHex;
-use crate::hexlib::hex::Hex;
+use crate::hex::fractional::FractionalHex;
+use crate::hex::hex::Hex;
 
 pub fn line(a: &Hex, b: &Hex) -> Vec<Hex> {
     let mut results: Vec<Hex> = Vec::new();
