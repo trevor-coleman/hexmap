@@ -1,29 +1,17 @@
-#![allow(dead_code)]
-#![allow(unused_variables)]
-
 use crate::hex::direction::HexDirection;
 use crate::hex::fractional::FractionalHex;
 use crate::hex::layout::{Layout, Orientation, Point};
 use crate::hex::offset::Offset;
-use bevy::prelude::Vec3;
-use bevy::render::render_graph::NodeId;
-use bevy_inspector_egui::Inspectable;
-use petgraph::prelude::NodeIndex;
-use rustc_hash::FxHashMap;
 use std::cmp;
-use std::collections::hash_map::DefaultHasher;
 use std::f32::consts::PI;
 use std::fmt::{Debug, Formatter};
-use std::hash::{Hash, Hasher};
+use std::hash::{Hash};
 use std::ops::{Add, Div, Mul, Neg, Sub};
 
-#[derive(Eq, PartialEq, Copy, Clone, Hash, Inspectable)]
+#[derive(Eq, PartialEq, Copy, Clone, Hash)]
 pub struct Hex {
-    #[inspectable(min=-10, max=10)]
     pub q: i32,
-    #[inspectable(min=-10, max=10)]
     pub r: i32,
-    #[inspectable(min=-10, max=10)]
     pub s: i32,
 }
 
@@ -33,11 +21,6 @@ impl Default for Hex {
     }
 }
 
-impl std::convert::From<Hex> for NodeIndex<u32> {
-    fn from(hex: Hex) -> Self {
-        NodeIndex::<u32>::new(u32::from(hex) as usize)
-    }
-}
 
 impl std::convert::From<Hex> for u32 {
     fn from(hex: Hex) -> Self {
@@ -73,14 +56,14 @@ impl Hex {
         Hex { q, r, s }
     }
 
-    pub fn screen_pos(&self, layout: &Layout, z: f32) -> Vec3 {
+    pub fn screen_pos(&self, layout: &Layout, z: f32) -> Vec<f32> {
         let m: &Orientation = &layout.orientation;
         let f: FractionalHex = self.to_fractional_hex();
 
         let x = (m.f0 * f.q + m.f1 * f.r) * layout.size.x;
         let y = (m.f2 * f.q + m.f3 * f.r) * layout.size.y;
 
-        Vec3::new(x + layout.origin.x, y + layout.origin.y, z)
+        vec![x + layout.origin.x, y + layout.origin.y, z]
     }
 
     pub fn length(self) -> i32 {
@@ -171,7 +154,7 @@ impl Hex {
 
         for i in 0..6 {
             let offset: Point = self.corner_offset(layout, i);
-            corners[i as usize] = Point::new(center.x + offset.x, center.y + offset.y);
+            corners[i as usize] = Point::new(center[0] + offset.x, center[1] + offset.y);
         }
         corners
     }
@@ -275,11 +258,11 @@ impl Neg for Hex {
     }
 }
 
-pub fn hex_from_screen(layout: Layout, p: Vec3) -> FractionalHex {
+pub fn hex_from_screen(layout: Layout, p: Vec<f32>) -> FractionalHex {
     let m: &Orientation = &layout.orientation;
     let pt: Point = Point::new(
-        (p.x - layout.origin.x) / layout.size.x,
-        (p.y - layout.origin.y) / layout.size.y,
+        (p[0] - layout.origin.x) / layout.size.x,
+        (p[1] - layout.origin.y) / layout.size.y,
     );
 
     let q = m.b0 * pt.x + m.b1 * pt.y;
@@ -287,56 +270,3 @@ pub fn hex_from_screen(layout: Layout, p: Vec3) -> FractionalHex {
     FractionalHex { q, r, s: -q - r }
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
-    #[test]
-    fn it_sets_values_correctly() {
-        let x = Hex::new(1, 2, -3);
-        assert_eq!(x.q, 1);
-    }
-
-    #[test]
-    fn it_calculates_length_correctly() {
-        let x = Hex::new(1, -1, 0);
-
-        assert_eq!(x.length(), 1);
-
-        let y = Hex::new(1, -2, -1);
-
-        assert_eq!(y.length(), 2);
-
-        let z = Hex::new(0, 3, -3);
-
-        assert_eq!(z.length(), 3);
-    }
-
-    #[test]
-    fn it_multiplies_correctly() {
-        for i in 1..10 {
-            let x = Hex::new(1, 2, -3);
-
-            let z = x * i;
-
-            let i = &i;
-            assert_eq!(z.q, x.q * i);
-            assert_eq!(z.r, x.r * i);
-            assert_eq!(z.s, x.s * i);
-        }
-    }
-
-    #[test]
-    fn it_divides_correctly() {
-        for i in 1..10 {
-            let i_ref = &i;
-
-            let x = Hex::new(120, 240, -360);
-
-            let z = x / i;
-
-            assert_eq!(z.q, x.q / i_ref);
-            assert_eq!(z.r, x.r / i_ref);
-            assert_eq!(z.s, x.s / i_ref);
-        }
-    }
-}

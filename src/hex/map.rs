@@ -1,6 +1,5 @@
 use crate::hex::hex::Hex;
 use crate::hex::offset::Offset;
-use crate::hex::tile::Tile;
 use std::cmp;
 use std::collections::{HashMap, HashSet};
 
@@ -11,16 +10,6 @@ enum MapDefinition {
 type HexSet = HashSet<Hex>;
 
 
-pub struct HexMap(pub HashMap<Hex, Tile>);
-
-pub fn hex_map_from_hex_set(hex_set: HexSet) -> HexMap {
-    let mut hex_map: HashMap<Hex, Tile> = HashMap::new();
-    for hex in hex_set {
-        hex_map.insert(hex, Tile::new(hex));
-    }
-
-    HexMap(hex_map)
-}
 
 struct Map {
     pub tiles: HexSet,
