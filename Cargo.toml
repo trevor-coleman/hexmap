@@ -5,6 +5,9 @@ edition = "2021"
 license = "Apache-2.0"
 keywords = ["gamedev", "hex", "tile", "map"]
 categories = ["game-development"]
+authors = ["Trevor Coleman <trevor@trevorcoleman.design>"]
+description = "A crate for creating and working with hex-based tile maps."
+repository = "https://github.com/trevor-coleman/hexmap"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
