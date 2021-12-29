@@ -6,7 +6,6 @@ use std::collections::{HashMap, HashSet};
 
 type HexSet = HashSet<Hex>;
 
-
 struct Map {
     pub tiles: HexSet,
 }

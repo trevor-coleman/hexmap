@@ -40,7 +40,7 @@ impl std::convert::From<Hex> for u32 {
 }
 
 impl Hex {
-    pub(crate) fn neighbors(&self) -> Vec<Hex> {
+    pub fn neighbors(&self) -> Vec<Hex> {
         let mut neighbors: Vec<Hex> = Vec::from([Hex::default(); 6]);
 
         for i in 0..5 {
