@@ -1,7 +1,7 @@
-use crate::hex::direction::HexDirection;
-use crate::hex::fractional::FractionalHex;
-use crate::hex::layout::{Layout, Orientation, Point};
-use crate::hex::offset::Offset;
+use crate::direction::HexDirection;
+use crate::fractional::FractionalHex;
+use crate::layout::{Layout, Orientation, Point};
+use crate::offset::Offset;
 use std::cmp;
 use std::f32::consts::PI;
 use std::fmt::{Debug, Formatter};

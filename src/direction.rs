@@ -1,5 +1,5 @@
-use crate::hex::hex::Hex;
 use std::ops::Add;
+use crate::hex::Hex;
 
 pub struct HexDirection(usize);
 

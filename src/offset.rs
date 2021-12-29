@@ -1,4 +1,4 @@
-use crate::hex::hex::Hex;
+use crate::hex::Hex;
 use std::ops::Add;
 
 #[derive(Clone, Debug, Copy)]

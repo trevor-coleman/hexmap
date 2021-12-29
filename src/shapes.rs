@@ -1,5 +1,5 @@
-use crate::hex::fractional::FractionalHex;
-use crate::hex::hex::Hex;
+use crate::fractional::FractionalHex;
+use crate::hex::Hex;
 
 pub fn line(a: &Hex, b: &Hex) -> Vec<Hex> {
     let mut results: Vec<Hex> = Vec::new();
@@ -7,8 +7,6 @@ pub fn line(a: &Hex, b: &Hex) -> Vec<Hex> {
     let step: f32 = 1.0 / (iterations as f32).max(1.0);
 
     for i in 0..=iterations {
-        let n = a.distance_to(*b);
-
         let i = i as f32;
         results.push(hex_lerp(a.nudge(), b.nudge(), &step * i).round());
     }

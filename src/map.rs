@@ -1,14 +1,10 @@
-use crate::hex::hex::Hex;
-use crate::hex::offset::Offset;
+use crate::hex::Hex;
+use crate::offset::Offset;
 use std::cmp;
 use std::collections::{HashMap, HashSet};
 
-enum MapDefinition {
-    Parallelogram { width: i32, height: i32 },
-}
 
 type HexSet = HashSet<Hex>;
-
 
 
 struct Map {
