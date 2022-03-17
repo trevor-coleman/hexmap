@@ -2,7 +2,7 @@ use crate::direction::HexDirection;
 use crate::fractional::FractionalHex;
 use crate::layout::{Layout, Orientation, Point};
 use crate::offset::Offset;
-use std::cmp;
+use std::{cmp, fmt};
 use std::f32::consts::PI;
 use std::fmt::{Debug, Formatter};
 use std::hash::{Hash};
@@ -48,6 +48,12 @@ impl Hex {
         }
 
         neighbors
+    }
+}
+
+impl fmt::Display for Hex {
+    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
+        write!(f, "({}, {}, {})", self.q, self.r, self.s)
     }
 }
 
